@@ -9,23 +9,22 @@ function computerChoice(arr) {
 const result = computerChoice(items);
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) {
-    return "Tie!";
-  } else if (playerSelection === "rock" && computerSelection == "paper") {
-    return "Computer wins!";
-  } else if (playerSelection == "rock" && computerSelection == "scissors") {
-    return "You win!";
-  } else if (playerSelection == "scissors" && computerSelection == "rock") {
-    return "Computer wins!";
-  } else if (playerSelection == "scissors" && computerSelection == "paper") {
-    return "You win!";
-  } else if (playerSelection == "paper" && computerSelection == "scissors") {
-    return "Computer wins!";
-  } else if (playerSelection == "paper" && computerSelection == "rock") {
-    return "You win!";
-  } else {
-    return "Something went wrong!";
-  }
+    const rules = {
+        rock: {beats: "scissors", result: "You win!"},
+        scissors: {beats: "paper", result: "You win!"},
+        paper: {beats: "rock", result: "You win!"}
+    };
+    if (!playerSelection || !items.includes(playerSelection)){
+        return "Invalid input!"
+    } else {
+        if (playerSelection == computerSelection) {
+            return "Tie!"
+        } else if (rules[playerSelection]?.beats === computerSelection) {
+            return rules[playerSelection].result
+        } else {
+            return "Computer wins!";
+        }
+    }
 }
 
 let playerSelection = prompt(
